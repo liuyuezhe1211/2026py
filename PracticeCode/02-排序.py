@@ -17,7 +17,7 @@ class Sort:
 
     def random_data(self):
         for i in range(self.len):
-            self.arr[i] = random.randint(0, 99999)
+            self.arr[i] = random.randint(0, 9999999)
 
     # 交换法的快排
     def partition(self, left, right):
@@ -90,14 +90,31 @@ class Sort:
             else:
                 break
 
+    def test_time_use(self,self_func,*args,**kwargs):
+        """
+        直接调用,回调函数
+        :param self_func:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        start = time.time()
+        self_func(*args,**kwargs)
+        end = time.time()
+        print(f'总计用时{end - start}')
 
 if __name__ == '__main__':
-    my_sort = Sort(10000)
-    print(my_sort.arr)
-    start=time.time()
-    # my_sort.quick_sort(0, 9)
-    # my_sort.quick_sort_408(0, 9)
-    my_sort.heap_sort()
-    end=time.time()
-    print(f'总计用时{end-start}')
-    print(my_sort.arr)
+    sort_count=10000
+    my_sort = Sort(sort_count)
+
+    # start=time.time()
+    # my_sort.quick_sort(0, sort_count-1)
+    # my_sort.quick_sort_408(0, sort_count-1)
+    # my_sort.heap_sort()
+    # end=time.time()
+    # print(f'总计用时{end-start}')
+
+    # my_sort.test_time_use(my_sort.quick_sort,0,sort_count-1)
+    my_sort.test_time_use(my_sort.quick_sort_408,0,sort_count-1)
+    # my_sort.test_time_use(my_sort.heap_sort)
+
