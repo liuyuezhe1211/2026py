@@ -22,7 +22,7 @@ class Sort:
     # 交换法的快排
     def partition(self, left, right):
         arr = self.arr
-        i = k = left
+        k = left
         ramdom_pos = random.randint(left, right)
         arr[ramdom_pos], arr[right] = arr[right], arr[ramdom_pos]
         for i in range(left, right):
