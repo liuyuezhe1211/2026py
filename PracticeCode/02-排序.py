@@ -19,11 +19,12 @@ class Sort:
         for i in range(self.len):
             self.arr[i] = random.randint(0, 99)
 
+    # 交换法的快排
     def partition(self, left, right):
         arr = self.arr
         i = k = left
-        ramdom_pos=random.randint(left,right)
-        arr[ramdom_pos],arr[right]=arr[right],arr[ramdom_pos]
+        ramdom_pos = random.randint(left, right)
+        arr[ramdom_pos], arr[right] = arr[right], arr[ramdom_pos]
         for i in range(left, right):
             if arr[i] < arr[right]:
                 arr[k], arr[i] = arr[i], arr[k]
@@ -37,9 +38,31 @@ class Sort:
             self.quick_sort(left, pov - 1)
             self.quick_sort(pov + 1, right)
 
+    # 408中写的快排
+    def huafen(self, l, r):
+        arr = self.arr
+        mid = arr[l]
+        while l < r:
+            while arr[r] >= mid and l < r:
+                r -= 1
+            arr[l] = arr[r]
+            while arr[l] <= mid and l < r:
+                l += 1
+            arr[r] = arr[l]
+        arr[l] = mid
+        return l
+
+    def quick_sort_408(self, l, r):
+        if l >= r:
+            return
+        mid = self.huafen(l, r)
+        self.quick_sort_408(l, mid - 1)
+        self.quick_sort_408(mid + 1, r)
+
 
 if __name__ == '__main__':
     my_sort = Sort(10)
     print(my_sort.arr)
-    my_sort.quick_sort(0, 9)
+    # my_sort.quick_sort(0, 9)
+    my_sort.quick_sort_408(0, 9)
     print(my_sort.arr)
