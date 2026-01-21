@@ -3,13 +3,13 @@
 # liuyuezhe1211@163.com
 
 import random
-
+import time
 
 class Sort:
     def __init__(self, n):
         """
         n是排序数的数量
-        :param count:
+        :param n:
         """
         self.arr = [0] * n
         self.len = n
@@ -17,7 +17,7 @@ class Sort:
 
     def random_data(self):
         for i in range(self.len):
-            self.arr[i] = random.randint(0, 99)
+            self.arr[i] = random.randint(0, 99999)
 
     # 交换法的快排
     def partition(self, left, right):
@@ -61,33 +61,43 @@ class Sort:
 
     # 堆排序
     def heap_sort(self):
-        pass
+        # 将非叶节点，从下往上调整为大根堆，使得整棵树成为大根堆
+        for i in range(self.len // 2, -1, -1):
+            self.adjust_max_heap(i, self.len)
+        arr = self.arr
+        arr[0], arr[self.len - 1] = arr[self.len - 1], arr[0]
+        for arr_len in range(self.len - 1, 1, -1):
+            self.adjust_max_heap(0, arr_len)
+            arr[0], arr[arr_len - 1] = arr[arr_len - 1], arr[0]
 
-    def adjust_max_heap(self,pos,arr_len):
+    def adjust_max_heap(self, pos, arr_len):
         """
         把某个子树调整为大根堆
         :param pos:被调整元素的位置
         :param arr_len:当时列表总长度
         :return:
         """
-        arr=self.arr
-        dad=pos
-        son=dad*2+1
-        while son<arr_len:
-            if son+1<arr_len and arr[son]<arr[son+1]:
-                son=son+1
-            if arr[dad]<arr[son]:
-                arr[dad],arr[son]=arr[son],arr[dad]
-                dad=son
-                son=dad*2+1
+        arr = self.arr
+        dad = pos
+        son = dad * 2 + 1
+        while son < arr_len:
+            if son + 1 < arr_len and arr[son] < arr[son + 1]:
+                son = son + 1
+            if arr[dad] < arr[son]:
+                arr[dad], arr[son] = arr[son], arr[dad]
+                dad = son
+                son = dad * 2 + 1
             else:
                 break
 
 
-
 if __name__ == '__main__':
-    my_sort = Sort(10)
+    my_sort = Sort(10000)
     print(my_sort.arr)
+    start=time.time()
     # my_sort.quick_sort(0, 9)
-    my_sort.quick_sort_408(0, 9)
+    # my_sort.quick_sort_408(0, 9)
+    my_sort.heap_sort()
+    end=time.time()
+    print(f'总计用时{end-start}')
     print(my_sort.arr)
