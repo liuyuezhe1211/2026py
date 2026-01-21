@@ -59,6 +59,31 @@ class Sort:
         self.quick_sort_408(l, mid - 1)
         self.quick_sort_408(mid + 1, r)
 
+    # 堆排序
+    def heap_sort(self):
+        pass
+
+    def adjust_max_heap(self,pos,arr_len):
+        """
+        把某个子树调整为大根堆
+        :param pos:被调整元素的位置
+        :param arr_len:当时列表总长度
+        :return:
+        """
+        arr=self.arr
+        dad=pos
+        son=dad*2+1
+        while son<arr_len:
+            if son+1<arr_len and arr[son]<arr[son+1]:
+                son=son+1
+            if arr[dad]<arr[son]:
+                arr[dad],arr[son]=arr[son],arr[dad]
+                dad=son
+                son=dad*2+1
+            else:
+                break
+
+
 
 if __name__ == '__main__':
     my_sort = Sort(10)
