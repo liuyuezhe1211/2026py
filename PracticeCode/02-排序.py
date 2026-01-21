@@ -22,6 +22,8 @@ class Sort:
     def partition(self, left, right):
         arr = self.arr
         i = k = left
+        ramdom_pos=random.randint(left,right)
+        arr[ramdom_pos],arr[right]=arr[right],arr[ramdom_pos]
         for i in range(left, right):
             if arr[i] < arr[right]:
                 arr[k], arr[i] = arr[i], arr[k]
